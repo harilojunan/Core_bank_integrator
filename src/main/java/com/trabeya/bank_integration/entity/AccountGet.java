@@ -1,20 +1,27 @@
 package com.trabeya.bank_integration.entity;
 
 import javax.persistence.*;
-
+//*
+//Author: Harilojunan.N
+//Date	: 14/January/2022
+//*
 @Entity
 @Table(schema = "bank_integration", name = "account")
 public class AccountGet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Input Data *********************************************************
     private String account_no;
 
     private String user_id;
 
+    // Output Data *********************************************************
     private double balance;
+
+    // constructors ***************************************
 
     public AccountGet() {
         super();
@@ -26,6 +33,8 @@ public class AccountGet {
         this.user_id = user_id;
         this.balance = balance;
     }
+
+    // Getters & Setters **************************************
 
     public Long getId() {
         return id;
