@@ -1,0 +1,155 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.trabeya.com/core_bank/accounts" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.trabeya.com/core_bank/accounts" targetNamespace="http://www.trabeya.com/core_bank/accounts">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.trabeya.com/core_bank/accounts">
+            <xs:element name="getAccountRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="user_id" type="xs:string"/>
+                        <xs:element name="account_no" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getAccountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="account" type="tns:account"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="account">
+                <xs:sequence>
+                    <xs:element name="userId" type="xs:string"/>
+                    <xs:element name="account_no" type="xs:string"/>
+                    <xs:element name="balance" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getTotalAmountRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="userId" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getTotalAmountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="totalAmount" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ownFundTransfer">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="own_source_user_id" type="xs:string"/>
+                        <xs:element name="own_source_account_no" type="xs:string"/>
+                        <xs:element name="own_destination_account_no" type="xs:string"/>
+                        <xs:element name="transfer_amount" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ownFundTransferResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="our_user_id" type="xs:string"/>
+                        <xs:element name="our_account_no" type="xs:string"/>
+                        <xs:element name="initial_account_balance" type="xs:double"/>
+                        <xs:element name="final_account_balance" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="otherFundTransfer">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="source_user_id" type="xs:string"/>
+                        <xs:element name="source_account_no" type="xs:string"/>
+                        <xs:element name="destination_user_id" type="xs:string"/>
+                        <xs:element name="destination_account_no" type="xs:string"/>
+                        <xs:element name="transfer_amount" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="otherFundTransferResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="our_user_id" type="xs:string"/>
+                        <xs:element name="our_account_no" type="xs:string"/>
+                        <xs:element name="initial_account_balance" type="xs:double"/>
+                        <xs:element name="final_account_balance" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="otherFundTransferResponse">
+        <wsdl:part element="tns:otherFundTransferResponse" name="otherFundTransferResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAccountResponse">
+        <wsdl:part element="tns:getAccountResponse" name="getAccountResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getTotalAmountRequest">
+        <wsdl:part element="tns:getTotalAmountRequest" name="getTotalAmountRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getTotalAmountResponse">
+        <wsdl:part element="tns:getTotalAmountResponse" name="getTotalAmountResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAccountRequest">
+        <wsdl:part element="tns:getAccountRequest" name="getAccountRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ownFundTransferResponse">
+        <wsdl:part element="tns:ownFundTransferResponse" name="ownFundTransferResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="AccountServicePort">
+        <wsdl:operation name="otherFundTransfer">
+            <wsdl:output message="tns:otherFundTransferResponse" name="otherFundTransferResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAccount">
+            <wsdl:input message="tns:getAccountRequest" name="getAccountRequest"> </wsdl:input>
+            <wsdl:output message="tns:getAccountResponse" name="getAccountResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getTotalAmount">
+            <wsdl:input message="tns:getTotalAmountRequest" name="getTotalAmountRequest"> </wsdl:input>
+            <wsdl:output message="tns:getTotalAmountResponse" name="getTotalAmountResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ownFundTransfer">
+            <wsdl:output message="tns:ownFundTransferResponse" name="ownFundTransferResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AccountServicePortSoap11" type="tns:AccountServicePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="otherFundTransfer">
+            <soap:operation soapAction=""/>
+            <wsdl:output name="otherFundTransferResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAccount">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getAccountRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getAccountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getTotalAmount">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getTotalAmountRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getTotalAmountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ownFundTransfer">
+            <soap:operation soapAction=""/>
+            <wsdl:output name="ownFundTransferResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AccountServicePortService">
+        <wsdl:port binding="tns:AccountServicePortSoap11" name="AccountServicePortSoap11">
+            <soap:address location="http://localhost:8090/core_bank/accounts"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
